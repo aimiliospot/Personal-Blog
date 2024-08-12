@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block header_content %}
+    <header class="masthead" style="background-image: url({% static "blog/assets/img/about-bg.jpg" %})">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="page-heading">
+                        <h1>About Me</h1>
+                        <span class="subheading">This is what I do.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock header_content %}
+
+{% block main_content %}
+    <main class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <p>I am an Electrical and Computer Engineer with a Master's degree in Mathematical Modeling and over
+                        two years of experience in the tech industry. I have a strong interest in coding, data
+                        analytics, and AI.</p>
+                    <p>This is a blog I created in order to familiarize with Django framework.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock main_content %}

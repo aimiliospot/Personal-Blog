@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block header_content %}
+    <header class="masthead" style="background-image: url({% static "blog/assets/img/home-bg.jpg" %})">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="site-heading">
+                        <h1>Aimilios Blog</h1>
+                        <span class="subheading">Expressing thoughts without filters</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock header_content %}
+
+<!-- Main Content-->
+{% block main_content %}
+    {% for post in posts %}
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    {% include "./includes/post_preview_snippet.html" with post_id=post.id post_title=post.title post_subtitle=post.subtitle post_date=post.date post_author=post.author post_slug=post.slug read_later_list=read_later_list %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock main_content %}
+
+

@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block header_content %}
+    <header class="masthead" style="background-image: url('{{ post.image.url }}')">
+        <div class="container position-relative px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <div class="post-heading">
+                        <h1>{{ post.title }}</h1>
+                        <h2 class="subheading">{{ post.subtitle }}</h2>
+                        <span class="meta">
+                        Posted by
+                        <a href="#!">{{ post.author }}</a>
+                        on {{ post.date }}
+                    </span>
+                        <form action="{% url 'read_later' %}" method="post">
+                            {% csrf_token %}
+                            {% if in_read_later_list %}
+                                <input type="hidden" name="post_slug" value= {{ post.slug }}>
+                                <input type="hidden" name="remove_read_later_post_id" value= {{ post.id }}>
+                                <button type="submit" class="btn btn-primary mt-3">Remove from Read Later</button>
+                            {% else %}
+                                <input type="hidden" name="post_slug" value= {{ post.slug }}>
+                                <input type="hidden" name="read_later_post_id" value= {{ post.id }}>
+                                <button type="submit" class="btn btn-primary mt-3">Read Later</button>
+                            {% endif %}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+{% endblock header_content %}
+
+{% block main_content %}
+    <article class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <h2 class="section-heading">{{ post.title }}</h2>
+                    <p>{{ post.content|linebreaks }}</p>
+                </div>
+            </div>
+        </div>
+    </article>
+{% endblock main_content %}
+
+{% block comments %}
+    <section>
+        <div class="container my-3 py-5 text-body">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-6">
+                    <div class="card">
+                        <div class="card-body p-4">
+                            <div class="d-flex flex-start w-100">
+                                <div class="w-100">
+                                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
+                                                    data-bs-target="#home-tab-pane1" type="button" role="tab"
+                                                    aria-controls="home-tab-pane" aria-selected="true">Add Comment
+                                            </button>
+                                        </li>
+                                        <li class="nav-item" role="presentation">
+                                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
+                                                    data-bs-target="#profile-tab-pane" type="button" role="tab"
+                                                    aria-controls="profile-tab-pane" aria-selected="false">Comments
+                                            </button>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content" id="myTabContent">
+                                        <div class="tab-pane fade show active" id="home-tab-pane1" role="tabpanel"
+                                             aria-labelledby="home-tab" tabindex="0">
+                                            <form method="post" action="{% url 'comment_submit' %}">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="post_slug" value="{{ post.slug }}"/>
+                                                <input type="hidden" name="post_id" value="{{ post.id }}"/>
+                                                <div class="mb-3 mt-3">
+                                                    <label for="{{ form.comment.id_for_label }}" class="form-label">What
+                                                        is
+                                                        your view ?</label>
+                                                    {{ form.comment }}
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="{{ form.username.id_for_label }}" class="form-label">Who
+                                                        are you ? </label>
+                                                    {{ form.username }}
+                                                </div>
+                                                <div class="d-flex justify-content-end">
+                                                    <button type="submit" class="btn btn-secondary">Post</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel"
+                                             aria-labelledby="profile-tab" tabindex="0">
+                                            {% for comment in comments %}
+                                                <div class="card mt-3">
+                                                    <div class="card-body">
+                                                        <h5 class="card-title">{{ comment.username }}</h5>
+                                                        <p class="card-text">{{ comment.comment }}</p>
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
