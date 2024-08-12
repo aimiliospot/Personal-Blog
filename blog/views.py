@@ -6,7 +6,6 @@ from .models import Author, Post, Tag, Comment
 from django.views import View
 from django.views.generic.base import TemplateView
 from .forms import CommentForm
-from datetime import date
 
 
 def get_date(post):
