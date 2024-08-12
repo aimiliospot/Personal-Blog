@@ -82,7 +82,7 @@ python manage.py createsuperuser
 
 ## Tech Stack
 
-[![Tech Stack](https://skillicons.dev/icons?i=python,html,css,django,bootstrap)](https://skillicons.dev)
+[![Tech Stack](https://skillicons.dev/icons?i=python,js,html,css,django,bootstrap)](https://skillicons.dev)
 
 ## License
 
